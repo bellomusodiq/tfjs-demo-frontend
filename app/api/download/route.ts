@@ -8,7 +8,7 @@ export async function GET(request: Request) {
 
   const fileContent = fs.readFileSync("data.csv", "utf8");
   if (delete_) {
-    fs.unlink("data.csv", (err) => {
+    fs.unlink("data.csv", (err: any) => {
       if (err) {
       } else {
         return NextResponse.json(fileContent);

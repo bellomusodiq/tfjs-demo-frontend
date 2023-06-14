@@ -3,13 +3,6 @@ import { NextResponse } from "next/server";
 const fs = require("fs");
 const csvWriter = require("csv-write-stream");
 
-function getCsvFileLength(csvFilePath) {
-  const fileContent = fs.readFileSync(csvFilePath, "utf8");
-  const rows = fileContent.split("\n");
-  const length = rows.length - 1; // Subtract 1 to exclude the header row (if any)
-
-  return length;
-}
 
 export async function POST(request: Request) {
   const res = await request.json();
@@ -25,7 +18,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  function getCsvFileLength(csvFilePath) {
+  function getCsvFileLength(csvFilePath: string) {
     const fileContent = fs.readFileSync(csvFilePath, "utf8");
     const rows = fileContent.split("\n");
     const length = rows.length - 2; // Subtract 1 to exclude the header row (if any)
