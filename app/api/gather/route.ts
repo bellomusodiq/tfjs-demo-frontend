@@ -6,7 +6,6 @@ const csvWriter = require("csv-write-stream");
 
 export async function POST(request: Request) {
   const res = await request.json();
-  console.log(res);
   const csvFilePath = "data.csv";
   // Append the JSON data to the CSV file
   const writer = csvWriter({ sendHeaders: false });
