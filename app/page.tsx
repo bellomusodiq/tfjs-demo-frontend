@@ -53,9 +53,9 @@ export default function Home() {
         rows={10}
         style={{ borderRadius: 12, padding: 14 }}
       ></textarea>
-      <button className={styles.button} onClick={() => savePrompt()}>
+      <div className={styles.button} onClick={() => savePrompt()}>
         Save
-      </button>
+      </div>
       <ToastContainer
         position="top-center"
         autoClose={5000}
