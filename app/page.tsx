@@ -6,11 +6,14 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { env } from "process";
+
+const BASE_URL = env.NODE_ENV === "production" ? "https://ecommerce-data-gathering.vercel.app/": "";
 
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const savePrompt = () => {
-    axios.post("api/gather", { prompt }).then(() => {
+    axios.post(`${BASE_URL}/api/gather`, { prompt }).then(() => {
       toast.success("Prompt saved, you can still add more", {
         position: "top-center",
         autoClose: 5000,
