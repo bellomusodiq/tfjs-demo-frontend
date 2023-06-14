@@ -3,10 +3,9 @@ import { NextResponse } from "next/server";
 const fs = require("fs");
 const csvWriter = require("csv-write-stream");
 
-
 export async function POST(request: Request) {
   const res = await request.json();
-  request.headers.append('Allow-Access-Control-Origin', '*')
+  request.headers.append("Allow-Access-Control-Origin", "*");
   const csvFilePath = "data.csv";
   // Append the JSON data to the CSV file
   const writer = csvWriter({ sendHeaders: false });
@@ -14,11 +13,16 @@ export async function POST(request: Request) {
   writer.write(res);
   writer.end();
 
-  return NextResponse.json({ success: true });
+  return new NextResponse(JSON.stringify({ success: true }), {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export async function GET(request: Request) {
-  request.headers.append('Allow-Access-Control-Origin', '*')
+  request.headers.append("Allow-Access-Control-Origin", "*");
   function getCsvFileLength(csvFilePath: string) {
     const fileContent = fs.readFileSync(csvFilePath, "utf8");
     const rows = fileContent.split("\n");
@@ -26,5 +30,14 @@ export async function GET(request: Request) {
 
     return length;
   }
-  return NextResponse.json({ prompCount: getCsvFileLength("data.csv") });
+
+  return new NextResponse(
+    JSON.stringify({ prompCount: getCsvFileLength("data.csv") }),
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }
