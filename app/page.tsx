@@ -16,17 +16,14 @@ const BASE_URL =
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const savePrompt = () => {
-    axios
-      .post(
-        `${BASE_URL}/api/gather`,
-        { prompt },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
-      )
+    fetch("api/gather", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    })
+      .then((response) => response.json())
       .then(() => {
         toast.success("Prompt saved, you can still add more", {
           position: "top-center",
