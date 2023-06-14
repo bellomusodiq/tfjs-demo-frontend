@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const savePrompt = () => {
-    axios.post("/api", { prompt }).then(() => {
+    axios.post("/api/gather", { prompt }).then(() => {
       toast.success("Prompt saved, you can still add more", {
         position: "top-center",
         autoClose: 5000,
