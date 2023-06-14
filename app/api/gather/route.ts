@@ -6,6 +6,7 @@ const csvWriter = require("csv-write-stream");
 
 export async function POST(request: Request) {
   const res = await request.json();
+  request.headers.append('Allow-Access-Control-Origin', '*')
   const csvFilePath = "data.csv";
   // Append the JSON data to the CSV file
   const writer = csvWriter({ sendHeaders: false });
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
+  request.headers.append('Allow-Access-Control-Origin', '*')
   function getCsvFileLength(csvFilePath: string) {
     const fileContent = fs.readFileSync(csvFilePath, "utf8");
     const rows = fileContent.split("\n");

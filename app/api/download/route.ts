@@ -4,6 +4,7 @@ const fs = require("fs");
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  request.headers.append('Allow-Access-Control-Origin', '*')
   const delete_ = searchParams.get("delete");
 
   const fileContent = fs.readFileSync("data.csv", "utf8");
