@@ -8,24 +8,38 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { env } from "process";
 
-const BASE_URL = env.NODE_ENV === "production" ? "https://ecommerce-data-gathering.vercel.app/": "";
+const BASE_URL =
+  env.NODE_ENV === "production"
+    ? "https://ecommerce-data-gathering.vercel.app/"
+    : "";
 
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const savePrompt = () => {
-    axios.post(`${BASE_URL}/api/gather`, { prompt }).then(() => {
-      toast.success("Prompt saved, you can still add more", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
+    axios
+      .post(
+        `${BASE_URL}/api/gather`,
+        { prompt },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(() => {
+        toast.success("Prompt saved, you can still add more", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setPrompt("");
       });
-      setPrompt("");
-    });
   };
   return (
     <main className={styles.main}>
